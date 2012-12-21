@@ -15,17 +15,14 @@ public class PeriodStability {
      * @param args The command line arguments
      */
     public static void main(final String[] args) throws IOException {
-        for(int n = 18; n <= 31; n++) {
+        final BufferedWriter out = new BufferedWriter(new FileWriter("PeriodStability.csv"));
+        for(int n = 3; n <= 29; n++) {
             final long order = (1 << n) - 1;
-            final BufferedWriter out = new BufferedWriter(new FileWriter("Stab-" + n + ".csv"));
             final Polynomial primitive = Polynomial.getPrimitive(n, 0);
             final List<Long> factors = Factor.getPrimeFactors(order);
             System.out.println("n = " + n + "\to = " + order + "\tf = " + primitive.getLong() + "\tqs = " + factors.toString());
             for(long q : factors) {
                 if(q > 17 && q < order) {
-                    if((order / q) > Integer.MAX_VALUE) {           //
-                        System.out.println("Integer overflow.");    // Not even sure if this is needed.
-                    }                                               //
                     int i = 0;
                     long sum = 0;
                     final int r = (int)(order / q);
@@ -45,12 +42,12 @@ public class PeriodStability {
                         }
                         sum += weights[i];
                     }
-                    System.out.println("\tq = " + q + "\ts = " + sum);
-                    out.write(q + "," + Long.toString(sum));
+                    System.out.println("\tq = " + q + "\tr = " + r + "\ts = " + sum);
+                    out.write(n + "," + q + "," + Long.toString(sum));
                     out.newLine();
                 }
             }
-            out.close();
         }
+        out.close();
     }
 }
