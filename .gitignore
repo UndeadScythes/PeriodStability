@@ -170,3 +170,10 @@ pip-log.txt
 build.xml
 manifest.mf
 nbproject/
+
+
+#############
+## Results
+#############
+
+Stab-*
