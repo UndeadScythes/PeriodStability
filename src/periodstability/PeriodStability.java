@@ -14,9 +14,8 @@ public class PeriodStability {
      * @param args The command line arguments
      */
     public static void main(final String[] args) throws IOException {
-        final BufferedWriter out = new BufferedWriter(new FileWriter("PeriodStability.csv"));
-
         for(int n = 2; n <= 30; n++) {
+            final BufferedWriter out = new BufferedWriter(new FileWriter("PeriodStability-" + n + ".csv"));
             final Polynomial primitive = Polynomial.getPrimitive(n, 0);
             final int order = (1 << n) - 1;
             final List<Integer> factors = Factor.getPrimeFactors(order);
@@ -42,7 +41,7 @@ public class PeriodStability {
                     out.newLine();
                 }
             }
+            out.close();
         }
-        out.close();
     }
 }
